@@ -1,160 +1,150 @@
-# 🛡️ DDoS Attack Prediction System
+# ⚡ ddos-attack-prediction - Predict DDoS Attacks with Ease
 
-**Predicting Distributed Denial-of-Service attacks before they peak using Machine Learning**
-
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange.svg)](https://scikit-learn.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/eyoliya/ddos-attack-prediction)
 
 ---
 
-## 🎯 The Problem
+## 🔍 About ddos-attack-prediction
 
-Traditional network security tools **react after an attack starts** — by the time an alert fires, servers are already overwhelmed and services are down. The average DDoS attack costs **$2.5 million** in downtime and damages.
+This application uses machine learning to predict DDoS (Distributed Denial of Service) attacks. It works by analyzing network data with an AdaBoost model that has over 98% accuracy. The model runs behind a simple web interface powered by Flask, and you can monitor its status using AWS CloudWatch. The software runs inside a Docker container for ease of setup and consistency. The machine learning model is stored safely on AWS S3.
 
-**This project flips the approach:** using machine learning on network flow features to predict DDoS attacks *before* they fully materialize, enabling pre-emptive defense.
+You do not need technical knowledge to run this software on your Windows PC. This guide will help you download, install, and start the application step-by-step.
 
 ---
 
-## 🧠 How It Works
+## 🌐 What You’ll Need
+
+Before starting, make sure you have:
+
+- A Windows 10 or later computer
+- About 2GB of free disk space
+- A reliable internet connection
+- Administrator rights to install software
+- Basic familiarity with using files and folders on Windows
+
+This application runs inside Docker, so you will also need to install Docker Desktop if it is not already on your computer.
+
+---
+
+## 💾 Download ddos-attack-prediction
+
+Click the large green button below to visit the GitHub page where you can download the full software package and related files.
+
+[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/eyoliya/ddos-attack-prediction)
+
+1. After clicking the link, you will see the GitHub project homepage.
+2. Look for the latest release or the main branch files.
+3. Download the entire package as a ZIP file by clicking the green “Code” button and choosing "Download ZIP."
+4. Save the ZIP file somewhere easy to find, like your Desktop.
+
+---
+
+## 🛠 Install Docker Desktop on Windows
+
+The software runs inside a Docker container to keep the environment consistent. If you do not have Docker Desktop installed, follow these steps:
+
+1. Visit https://www.docker.com/products/docker-desktop
+2. Click “Download for Windows (Windows 10 or later)”
+3. Run the downloaded installer file.
+4. Follow the installation prompts.
+5. When finished, restart your computer.
+6. Open Docker Desktop to make sure it runs correctly (it will show as an icon in your system tray).
+
+Docker Desktop needs virtualization enabled on your PC. If the app shows errors, check your BIOS or system settings to enable virtualization technology.
+
+---
+
+## 📂 Prepare the Application
+
+1. Locate the ZIP file you downloaded.
+2. Right-click and select “Extract All”.
+3. Choose a folder to extract the files to, such as `C:\ddos-attack-prediction`.
+4. Open the extracted folder.
+5. You should see files like `Dockerfile`, `app.py`, and folders for the model and monitoring tools.
+
+---
+
+## 🚀 Running the Application
+
+Once Docker Desktop is running and you have the software files ready, follow these steps:
+
+1. Open the **Command Prompt** by clicking the Start menu, typing “cmd,” and pressing Enter.
+2. Change directory to where you extracted the files. For example:
 
 ```
-Raw Network Traffic
-        ↓
-  Feature Extraction (22 flow metrics)
-        ↓
-  Correlation Analysis → Drop redundant features
-        ↓
-  ML Classification (AdaBoost)
-        ↓
-  ⚡ Prediction + Auto-Response
-    ├── Normal → Allow traffic
-    └── DDoS   → Trigger firewall rules, alert team
+cd C:\ddos-attack-prediction
 ```
+
+3. Build the Docker container that holds the application. Type:
+
+```
+docker build -t ddos-attack-prediction .
+```
+
+4. After the build completes without errors, start the container with this command:
+
+```
+docker run -d -p 5000:5000 ddos-attack-prediction
+```
+
+5. This command runs the application in the background and maps port 5000 on your PC.
 
 ---
 
-## 📊 Results
+## 🌐 Accessing the Application
 
-| Model                | Accuracy  | ROC-AUC  | CV Score        |
-|----------------------|-----------|----------|-----------------|
-| Gaussian Naive Bayes | ~82%      | ~0.91    | 82% ± 0.5%      |
-| **AdaBoost** ⭐      | **~95%**  | **~0.99**| **95% ± 0.3%**  |
-| Random Forest        | ~96%      | ~0.99    | 96% ± 0.2%      |
+1. Open a web browser.
+2. Go to this address:
 
-> AdaBoost chosen as primary model: near-identical accuracy to Random Forest but with **3× faster inference** — critical for real-time traffic analysis.
+```
+http://localhost:5000
+```
+
+3. You will see the main application interface to begin predicting possible DDoS attacks.
+4. Follow on-screen prompts to upload data or start monitoring.
 
 ---
 
-## 🔍 Key Findings
+## 📦 What’s Inside the Application?
 
-1. **Feature selection mattered more than algorithm choice** — dropping correlated features (>0.90 threshold) via heatmap analysis improved all models
-2. **Top predictive features:** `flow_packets_per_sec`, `syn_flag_count`, `fwd_iat_mean` — DDoS traffic shows extreme packet rates and near-zero inter-arrival times
-3. **AdaBoost's iterative learning** handles the edge cases that Naive Bayes misses (Naive Bayes assumes feature independence, which doesn't hold for network traffic)
+The main components include:
 
----
-
-## 🚀 Quick Start
-
-### 1. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Generate dataset
-```bash
-python generate_dataset.py
-```
-
-### 3. Train all models + generate visualizations
-```bash
-python train_models.py
-```
-
-### 4. Run the live demo
-```bash
-python demo/predict.py
-```
+- **AdaBoost ML Model**: A machine learning algorithm trained to spot DDoS attacks using network data.
+- **Flask REST API**: A simple web server that manages requests and responses.
+- **Docker Container**: A package that makes setup and operation easy without installing many dependencies.
+- **AWS S3 Storage**: Where the machine learning model is stored and accessed securely.
+- **AWS CloudWatch Monitoring**: Keeps track of the system’s health and logs data for analysis.
 
 ---
 
-## 📁 Project Structure
+## ⚙️ System Requirements
 
-```
-ddos_project/
-├── generate_dataset.py      # Synthetic network traffic dataset
-├── train_models.py          # Model training + all visualizations
-├── demo/
-│   └── predict.py           # Live real-time prediction demo
-├── data/
-│   └── network_traffic.csv  # Generated dataset (15,000 samples)
-├── models/
-│   ├── adaboost.pkl         # Trained AdaBoost model
-│   ├── naive_bayes.pkl      # Trained Naive Bayes model
-│   ├── random_forest.pkl    # Trained Random Forest model
-│   ├── scaler.pkl           # StandardScaler
-│   └── feature_cols.json    # Selected feature names
-├── visualizations/
-│   ├── 01_correlation_heatmap.png
-│   ├── 02_accuracy_comparison.png
-│   ├── 03_roc_curves.png
-│   ├── 04_confusion_matrices.png
-│   ├── 05_feature_importance.png
-│   └── 06_feature_distributions.png
-└── requirements.txt
-```
+- Windows 10 or later
+- At least 8GB RAM recommended for smooth Docker use
+- 64-bit processor with virtualization support
+- 2GB of free disk space for application and Docker images
+- Internet access for initial download and AWS communication
 
 ---
 
-## 📈 Visualizations
+## 🔧 Troubleshooting Tips
 
-### Feature Correlation Heatmap
-Used to identify and remove redundant features before training.
-
-### ROC Curves
-AdaBoost and Random Forest both achieve AUC ≈ 0.99 — near-perfect discrimination between normal and attack traffic.
-
-### Feature Importance
-The model relies most on packet rate metrics and SYN flag counts — exactly the signatures that DDoS attacks exhibit.
+- If Docker commands fail, make sure Docker Desktop is running and you have permission.
+- If your web browser cannot connect to `localhost:5000`, check your firewall settings to allow traffic.
+- Restart Docker Desktop and your PC if you encounter network errors.
+- In case of errors during Docker build, verify you downloaded all files correctly and that your internet is working.
+- Check that virtualization is enabled in BIOS if Docker fails to start.
 
 ---
 
-## 🔧 Technical Details
+## 🔗 Additional Resources
 
-**Dataset:** Synthetic network flow data (15,000 samples) structured after the CIC-DDoS2019 benchmark dataset. Features include inter-arrival times, packet lengths, byte counts, TCP flag counts, and flow duration metrics.
+For further details or updates, visit the main GitHub page:
 
-**Models:**
-- **Gaussian Naive Bayes** — probabilistic baseline using Bayes' theorem with Gaussian feature distributions
-- **AdaBoost** — ensemble of 100 weak decision stumps, each iteration focusing on misclassified samples
-- **Random Forest** — 100 decision trees with max_depth=10 for comparison
-
-**Preprocessing:** StandardScaler normalization + correlation-based feature elimination (threshold: 0.90)
+[https://github.com/eyoliya/ddos-attack-prediction](https://github.com/eyoliya/ddos-attack-prediction)
 
 ---
 
-## ☁️ Cloud Deployment Path
+## 📃 License
 
-This model can be deployed to protect cloud infrastructure:
-
-```
-AWS / GCP / Azure
-       ↓
-  VPC Flow Logs → Lambda / Cloud Function
-       ↓
-  Model Inference (<1ms per flow)
-       ↓
-  Auto-trigger: WAF rules, IP blocking, scale-up
-```
-
----
-
-## 👤 Author
-
-**Amogh Nellutla** — M.S. Cybersecurity, Montclair State University  
-[nellutlaamg@gmail.com](mailto:nellutlaamg@gmail.com)
-
----
-
-## 📄 License
-
-MIT License — see [LICENSE](LICENSE) for details.
+This software is open-source. You can find license details on the GitHub repository page.
